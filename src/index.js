@@ -6,6 +6,7 @@ function createPromiseFromNumberInput(inputElement) {
   return new Promise(function (resolve, reject) {
     if (isNaN(inputValue)) {
       reject();
+      return;
     }
     if (inputValue < 0) {
       createParagraphWithInputValue(inputValue);
@@ -31,14 +32,19 @@ function createPromiseFromNumberInput(inputElement) {
 
 function createParagraphWithInputValue(number) {
   const newParagraph = document.createElement("p");
+  newParagraph.id = number.toString();
   newParagraph.innerHTML = `Promise: ${number}`;
   document.body.append(newParagraph);
 }
 
 if (numberInput && acceptButton) {
   acceptButton.addEventListener("click", function () {
-    createPromiseFromNumberInput(numberInput).catch(function () {
-      console.log("It's not a number");
-    });
+    createPromiseFromNumberInput(numberInput)
+      .then(function () {
+        document.getElementById(numberInput.value).remove();
+      })
+      .catch(function () {
+        document.getElementById(numberInput.value).style.color = "red";
+      });
   });
 }
