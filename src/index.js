@@ -1,9 +1,8 @@
 import { wait } from './wait';
-import {getMillisecondsToWait} from "../getMillisecondsToWait";
+import { getMillisecondsToWait } from '../getMillisecondsToWait';
 
 const numberInput = document.querySelector('#number-input');
 const acceptButton = document.querySelector('#accept-button');
-
 
 function createParagraphWithInputValue(number) {
   const newParagraph = document.createElement('p');
@@ -22,8 +21,11 @@ if (numberInput && acceptButton) {
     const value = numberInput.value;
     const paragraph = createParagraphWithInputValue(value);
     waitBasedOnInputValue(value)
-      .then(function() {
+      .then(function () {
         paragraph.remove();
       })
+      .catch(function () {
+        paragraph.style.color = 'red';
+      });
   });
 }
