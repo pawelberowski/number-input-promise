@@ -1,5 +1,7 @@
-const numberInput = document.querySelector("#number-input");
-const acceptButton = document.querySelector("#accept-button");
+import { wait } from './wait';
+
+const numberInput = document.querySelector('#number-input');
+const acceptButton = document.querySelector('#accept-button');
 
 function createPromiseFromNumberInput(inputElement) {
   const inputValue = +inputElement.value;
@@ -31,20 +33,20 @@ function createPromiseFromNumberInput(inputElement) {
 }
 
 function createParagraphWithInputValue(number) {
-  const newParagraph = document.createElement("p");
+  const newParagraph = document.createElement('p');
   newParagraph.id = number.toString();
   newParagraph.innerHTML = `Promise: ${number}`;
   document.body.append(newParagraph);
 }
 
 if (numberInput && acceptButton) {
-  acceptButton.addEventListener("click", function () {
+  acceptButton.addEventListener('click', function () {
     createPromiseFromNumberInput(numberInput)
       .then(function () {
         document.getElementById(numberInput.value).remove();
       })
       .catch(function () {
-        document.getElementById(numberInput.value).style.color = "red";
+        document.getElementById(numberInput.value).style.color = 'red';
       });
   });
 }
